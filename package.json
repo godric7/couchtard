@@ -1,7 +1,7 @@
 {
   "name": "couchtard",
   "version": "0.0.1",
-  "description": "Evergig models/orm/odm/couchbase/elasticsearch",
+  "description": "",
   "main": "index.js",
   "author": "Laurent Humez <godric.com@gmail.com>",
   "license": "BSD-2-Clause",
