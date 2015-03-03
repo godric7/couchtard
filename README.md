@@ -2,15 +2,28 @@
 # CouchTard
 
 #### Documentation Index
- * [Setup](#setup)
+ * [Introduction](#introduction)
  * [Bucket](#bucket)
-   * [Basics](#basics)
-   * [Advanced](#advanced)
+   * [bucket.add](#bucketadd)
+   * [bucket.get](#bucketget)
+   * [bucket.save](#bucketsave)
+   * [bucket.delete](#bucketdelete)
+   * [bucket.lock](#bucketlock)
+   * [bucket.unlock](#bucketunlock)
+   * [bucket.populate](#bucketpopulate)
  * [Models](#models)
-   * [Basics](#basics)
-   * [Miscellaneous](#miscellaneous)
+   * [bucket.new](#bucketnew)
+   * [model.add](#modeladd)
+   * [model.save](#modelsave)
+   * [model.delete](#modeldelete)
+   * [model.populate](#modelpopulate)
  * [Views](#views)
+   * [bucket.view](#bucketview)
+   * [bucket.glimpse](#bucketglimpse)
+   * [bucket.gaze](#bucketgaze)
  * [Streaming](#streaming)
+   * [stream.view](#streamview)
+   * [stream.gaze](#streamgaze)
 
 # Introduction
 
@@ -42,12 +55,11 @@ var stream = new Stream(bucket);
 
 # Bucket
 
-### Basics
 
-#### Add
+#### bucket.add
 ```javascript
 // Add one item
-bucket.add(key, function(err, item) {
+bucket.add(item, function(err, item) {
   console.log(key + ' added (insert).')
 });
 // Add multiple items
@@ -56,7 +68,7 @@ bucket.add_multi([item1, item2], function(err) {
 });
 ```
 
-#### Get
+#### bucket.get
 ```javascript
 // Get one item
 bucket.get(key, function(err, item) {
@@ -68,7 +80,7 @@ bucket.get_multi([key1, key2], function(err, items) {
 });
 ```
 
-#### Save
+#### bucket.save
 ```javascript
 // Save one item
 bucket.save(item, function(err) {
@@ -84,7 +96,7 @@ bucket.save_multi({key1: item1, key2: item2}, function(err) {
 });
 ```
 
-#### Delete
+#### bucket.delete
 
 ```javascript
 // Delete one item
@@ -97,9 +109,7 @@ bucket.delete_multi([key1, key2], function(err) {
 });
 ```
 
-### Miscellaneous
-
-#### Lock
+#### bucket.lock
 ```javascript
 // Lock one item
 bucket.lock(key, function(err, item) {
@@ -112,7 +122,7 @@ bucket.lock_multi([key1, key2], function(err, item) {
 ```
 _Note: Saving locked item(s) will release the lock_
 
-#### Unlock
+#### bucket.unlock
 ```javascript
 // Unlock one item
 bucket.unlock(item, function(err, item) {
@@ -128,7 +138,8 @@ bucket.unlock_multi({key1: item1, key2: item2}, function(err, item) {
 });
 ```
 
-#### Populate
+
+#### bucket.populate
 ```javascript
 var item1 = {rel_key: 'xxxx-xxxx-xxx'};
 var item2 = {rel_key: 'yyyy-yyyy-yyy'};
@@ -151,9 +162,8 @@ bucket.populate_multi({'item1': item1, 'item2':item2}, {rel_key: rel_item}, func
 
 # Models
 
-### Basics
 
-#### Basics
+#### bucket.new
 
 ```javascript
 // Create Item from Model Artists, with key "artist-1"
@@ -164,7 +174,7 @@ var item = bucket.new('artist', {name: "Gorillaz"});
 ```
 
 
-#### Add
+#### model.add
 
 ```javascript
 // Add item (insert)
@@ -172,7 +182,7 @@ item.add(function(err) {
   console.log(item._key + ' was added.');
 });
 ```
-#### Save
+#### model.save
 
 ```javascript
 // Save item
@@ -181,7 +191,7 @@ item.save(function(err) {
 });
 ```
 
-#### Update
+#### model.update
 
 ```javascript
 // Update (modify and save) item
@@ -189,7 +199,7 @@ item.update(obj, function(err, item) {
   console.log(item._key + ' was modified.');
 });
 ```
-#### Delete
+#### model.delete
 
 ```javascript
 // Delete item
@@ -198,9 +208,8 @@ item.delete(function(err) {
 });
 ```
 
-### Miscellaneous
 
-#### Populate
+#### model.populate
 
 ```javascript
 // Delete item
@@ -221,7 +230,7 @@ The following exemple assume that the view ddoc/view contents are :
 ]
 ```
 
-#### View
+#### bucket.view
 
 The basic view mechanism, mostly a wrapper around Couchabase's ViewQuery
 ```javascript
@@ -246,7 +255,7 @@ bucket.view(items_by_name, 'Shiny', function(err, names) {
 });
 ```
 
-#### Glimpse
+#### bucket.glimpse
 
 To use a view as an counter and retrieve the total number of matching items.
 This excpects the view to have a `_count` reduce function
@@ -268,7 +277,7 @@ bucket.glimpse('index', 'by_name', opts, function(err, res, meta) {
 });
 ```
 
-#### Gaze
+#### bucket.gaze
 
 To use a view as an index and retrieve the emmiting items rather that the emmited values.
 This will in fact also call glimpse, excpecting the view to have a `_count` reduce function
@@ -296,13 +305,13 @@ bucket._gaze('index', 'by_name', opts, function(err, items, meta) {
 
 The streaming support is a parallelized, efficient way of querying large views.
 It basicaly is a node event stream, that will call a worker function with chunks of
-results untill done, and works as a drop-in replacement to the previous function.
+results untill done, and works as a drop-in replacement of bucket._view and bucket.gaze.
 
 It recognize two special view parameters 
  * `chunkSize`: Maximum number of items to pass on to a worker function
  * `concurency`: Maximum number of simultaneous workers functions to call
 
-#### View
+#### stream.view
 
 ```javascript
 // Fetch results for items whose name start with "Shiny"
@@ -316,7 +325,7 @@ stream._view('index', 'by_name', opts, function(err, res, meta, done) {
 });
 ```
 
-#### Gaze
+#### stream.gaze
 
 ```javascript
 // Fetch all items whose name starts with "Shiny"
