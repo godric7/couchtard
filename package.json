@@ -3,6 +3,10 @@
   "version": "0.0.2",
   "description": "",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/godric7/couchtard"
+  },
   "author": "Laurent Humez <godric.com@gmail.com>",
   "license": "BSD-2-Clause",
   "dependencies": {
