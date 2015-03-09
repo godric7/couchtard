@@ -33,9 +33,9 @@
 
 var ct = require('couchtard');
 
-// Couchtard only manipulate object derived from the Model prototype.
-// Basic is provided as an exemple, it will keep up to date informations about
-// creation/update dates types and id in the document.
+// Couchtard only manipulates objects derived from the Model prototype.
+// Basic is provided as an example, it will keep up to date information about
+// creation/update dates, types and id as properties of the document.
 
 var models = {
   'basic': ct.Basic
