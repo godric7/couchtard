@@ -1,6 +1,6 @@
 {
   "name": "couchtard",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -13,7 +13,7 @@
     "JSONStream": "^0.10.0",
     "pause-stream": "0.0.11",
     "async": "^0.9.0",
-    "couchbase": "^2.0.5",
+    "couchbase": "^2.0.6",
     "debug": "^2.1.2",
     "node-uuid": "^1.4.1",
     "request": "^2.51.0"
