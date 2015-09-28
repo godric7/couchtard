@@ -5,7 +5,7 @@ var uuid = require('node-uuid');
 
 var Model = require('../lib/Model.js');
 
-function Basic(src, key, obj) {
+function Basic() {
   Model.apply(this, arguments);
   if (!this.id)
     this.id = '/'+this._type+'s/'+uuid.v4();
@@ -27,7 +27,8 @@ Basic.prototype.properties.id = {
 
 Basic.prototype.properties.type = {
   'enumerable': true,
-  get: function() { return this._type.toLowerCase(); }
+  get: function() { return this._type.toLowerCase(); },
+  set: function() { }
 };
 
 Basic.prototype.properties.created = {
