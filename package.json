@@ -1,6 +1,6 @@
 {
   "name": "couchtard",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Couchbase 'down to earth' ODM",
   "main": "index.js",
   "homepage": "https://github.com/godric7/couchtard",
@@ -8,7 +8,10 @@
     "type": "git",
     "url": "https://github.com/godric7/couchtard"
   },
-  "keywords": ["couchbase", "odm"],
+  "keywords": [
+    "couchbase",
+    "odm"
+  ],
   "author": "Godric <godric.com@gmail.com>",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,11 +19,11 @@
   "license": "MIT",
   "dependencies": {
     "JSONStream": "^0.10.0",
-    "pause-stream": "0.0.11",
     "async": "^0.9.0",
     "couchbase": "^2.0.6",
-    "debug": "^2.1.2",
+    "debug": "^2.2.0",
     "node-uuid": "^1.4.1",
+    "pause-stream": "0.0.11",
     "request": "^2.51.0"
   }
 }
